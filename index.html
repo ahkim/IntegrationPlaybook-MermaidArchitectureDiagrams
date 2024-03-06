@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>INTEGRATION ARCHITECTURE DIAGRAMS</title>
+    <title>IHG's Integration Architecture Diagrams</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://kendo.cdn.telerik.com/2020.3.1118/styles/kendo.common-bootstrap.min.css" rel="stylesheet">
     <link href="https://kendo.cdn.telerik.com/2020.3.1118/styles/kendo.bootstrap.min.css" rel="stylesheet">
@@ -20,7 +20,7 @@
                     aria-expanded="false" aria-controls="navbar">
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"><strong>INTEGRATION ARCHITECTURE DIAGRAMS</strong></a>
+                <a class="navbar-brand" href="#"><strong>IHG's Integration Architecture Diagrams</strong></a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -35,7 +35,7 @@
                 <ul class="nav nav-sidebar">
                     <li class="active"><a href="#">SYSTEM INTEGRATIONS<span class="sr-only">(current)</span></a>
                     </li>
-                    <li><a href="#">DATA FLOWS</a></li>
+                    <!--<li><a href="#">DATA FLOWS</a></li>-->
                 </ul>
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -88,21 +88,23 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
+                                        <th>ID</th>
                                         <th>Label</th>
-                                        <th>Program</th>
-                                        <th>Project</th>
                                         <th>Source</th>
-                                        <th>Destination</th>
+                                        <th>S/Signature</th>
+                                        <th>Target</th>
+                                        <th>T/Signature</th>                                        
                                         <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="x in filteredConceptualView">
+                                        <td>{{x.ID}}</td>
                                         <td>{{x.Label}}</td>
-                                        <td>{{x.Program}}</td>
-                                        <td>{{x.Project}}</td>
                                         <td>{{x.SourceSystem}}</td>
-                                        <td>{{x.DestinationSystem}}</td>
+                                        <td>{{x.SourceSignature}}</td>
+                                        <td>{{x.TargetSystem}}</td>
+                                        <td>{{x.TargetSignature}}</td>
                                         <td>{{x.Status}}</td>
                                     </tr>
                                 </tbody>
@@ -153,7 +155,7 @@
                         tempPrograms.push(value.Program);
                         tempProjects.push(value.Project);
                         tempSystems.push(value.SourceSystem);
-                        tempSystems.push(value.DestinationSystem);
+                        tempSystems.push(value.TargetSystem);
                         tempStatuses.push(value.Status);
                     });
                     $scope.programs = _.uniq(tempPrograms);
@@ -177,12 +179,12 @@
                             result = $scope.selectedPrograms.includes(obj.Program) ||
                                 $scope.selectedProjects.includes(obj.Project) ||
                                 $scope.selectedSystems.includes(obj.SourceSystem) ||
-                                $scope.selectedSystems.includes(obj.DestinationSystem);
+                                $scope.selectedSystems.includes(obj.TargetSystem);
                         } else {
                             result = ($scope.selectedPrograms.includes(obj.Program) ||
                                 $scope.selectedProjects.includes(obj.Project) ||
                                 $scope.selectedSystems.includes(obj.SourceSystem) ||
-                                $scope.selectedSystems.includes(obj.DestinationSystem)) &&
+                                $scope.selectedSystems.includes(obj.TargetSystem)) &&
                                 $scope.selectedStatuses.includes(obj.Status)
                         }
                         return result;
@@ -197,7 +199,7 @@
                         else {
                             direction = "}o--|{";
                         };
-                        conceptualViewMarkup = conceptualViewMarkup.concat(value.SourceSystem + " " + direction + " " + value.DestinationSystem + " : \"" + value.Label + "\"\n");
+                        conceptualViewMarkup = conceptualViewMarkup.concat(value.SourceSystem + " " + direction + " " + value.TargetSystem + " : \"" + value.ID + "\"\n");
                     });
 
                     if (conceptualViewMarkup != "") {
